@@ -40,8 +40,18 @@ class HomeScreen extends StatelessWidget {
                     fontStyle: FontStyle.italic,
                   ),
                   prefixIcon: Icon(Icons.search)),
+              //keyboardType: TextInputType.number,
+            ), 
+          ),
+          TextButton(
+            onPressed: () {
+              print("1");
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.blue,
             ),
-          )
+            child: const Text('1'),
+          ),
         ],
       ),
     )));
