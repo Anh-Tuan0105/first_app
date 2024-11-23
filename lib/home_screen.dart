@@ -1,59 +1,103 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Color backgrounds = Colors.white;
+  double result = 0;
+  final TextEditingController control = TextEditingController();
+  void changeColor() {
+    setState(() {
+      backgrounds = backgrounds == Colors.white ? Colors.blue : Colors.white;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-            body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          RichText(
-            text: const TextSpan(
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Roboto',
+      home: Scaffold(
+        backgroundColor: backgrounds,
+        appBar: AppBar(
+          backgroundColor: Colors.green,
+          elevation: 20,
+          centerTitle: true,
+          title: const Text("My App"),
+          //centerTitle: true,
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                result.toString(),
+                style: const TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              children: [
-                TextSpan(text: 'G', style: TextStyle(color: Colors.blue)),
-                TextSpan(text: 'o', style: TextStyle(color: Colors.red)),
-                TextSpan(text: 'o', style: TextStyle(color: Colors.yellow)),
-                TextSpan(text: 'g', style: TextStyle(color: Colors.blue)),
-                TextSpan(text: 'l', style: TextStyle(color: Colors.green)),
-                TextSpan(text: 'e', style: TextStyle(color: Colors.red)),
-              ],
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 25),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(40)),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 25),
+                child: TextField(
+                  controller: control,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                    ),
+                    hintText: 'Number Convert',
+                    hintStyle: TextStyle(
+                      fontStyle: FontStyle.italic,
+                    ),
+                    prefixIcon: Icon(Icons.search),
                   ),
-                  hintText: 'Search',
-                  hintStyle: TextStyle(
-                    fontStyle: FontStyle.italic,
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                child: TextButton(
+                  onPressed: () {
+                    setState(() {
+                      result = double.parse(control.text) * 25;
+                    });
+                    //result = double.parse(control.text) * 25;
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.black,
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5), // Square corners
+                    ),
                   ),
-                  prefixIcon: Icon(Icons.search)),
-              //keyboardType: TextInputType.number,
-            ), 
+                  child: const Text('Convert'),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 30),
+                child: TextButton(
+                    onPressed: changeColor,
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.black,
+                      minimumSize: const Size(double.infinity, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(5), // Square corners
+                      ),
+                    ),
+                    child: const Text('Change Color')),
+              )
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              print("1");
-            },
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.blue,
-            ),
-            child: const Text('1'),
-          ),
-        ],
+        ),
       ),
-    )));
+    );
   }
 }
