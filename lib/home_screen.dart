@@ -13,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController control = TextEditingController();
   void changeColor() {
     setState(() {
-      backgrounds = backgrounds == Colors.white ? Colors.blue : Colors.white;
+      backgrounds = backgrounds == Colors.white ? Colors.yellow : Colors.white;
     });
   }
 
@@ -34,7 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                result.toString(),
+                result != 0
+                    ? result.toStringAsFixed(1)
+                    : result.toStringAsFixed(0),
                 style: const TextStyle(
                   fontSize: 50,
                   fontWeight: FontWeight.bold,
